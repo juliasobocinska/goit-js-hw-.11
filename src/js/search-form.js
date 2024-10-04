@@ -44,8 +44,8 @@ document.getElementById('searchButton').addEventListener('click', function(event
             if (Array.isArray(data.hits) && data.hits.length === 0) {
                 // Jeśli otrzymano pustą tablicę
                 iziToast.error({
-                    title: 'Przepraszamy!',
-                    message: 'Nie ma obrazów zgodnych z wyszukiwaniem. Spróbuj ponownie!',
+                    title: false,
+                    message: 'Sorry, there are no images matching your search query. Please try again!',
                     position: 'topRight'
                 });
             } else {
