@@ -10,12 +10,18 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 const loader = document.querySelector('.loader');
 const gallery = document.querySelector('.gallery');
+
+//zmienna lightbox
 let lightbox;
 
+//wyszukanie przycisku przez ID i dodanie zdarzenia na kliknięciu
 document.getElementById('searchButton').addEventListener('click', function(event) {
     event.preventDefault();
+
+    //wartość inputa
     const keyWord = document.getElementById('searchInput').value;
 
+    //ustawienie loadera na widoczny przed wysłaniem żądania
     loader.style.display = 'block';
     
     const searchParams = new URLSearchParams ({
@@ -31,6 +37,7 @@ document.getElementById('searchButton').addEventListener('click', function(event
 
     console.log(url);
 
+    
     fetch(url)
         .then((response) => {
             if (!response.ok) {
@@ -43,6 +50,7 @@ document.getElementById('searchButton').addEventListener('click', function(event
 
             if (Array.isArray(data.hits) && data.hits.length === 0) {
                 // Jeśli otrzymano pustą tablicę
+
                 iziToast.error({
                     title: false,
                     message: 'Sorry, there are no images matching your search query. Please try again!',
@@ -55,10 +63,12 @@ document.getElementById('searchButton').addEventListener('click', function(event
                     <a href="${image.largeImageURL}" class="lightbox" title="${image.tags}">
                     <img src="${image.webformatURL}" alt="${image.tags}"></img>
                     </a>
-                    <p>Likes: ${image.likes}</p>
-                    <p>Views: ${image.views}</p>
-                    <p>Comments: ${image.comments}</p>
-                    <p>Downloads: ${image.downloads}</p>
+                    <div class="container-box">
+                    <p class="desc"><span class="count">Likes:</span> ${image.likes}</p>
+                    <p class="desc"><span class="count">Views:</span> ${image.views}</p>
+                    <p class="desc"><span class="count">Comments:</span> ${image.comments}</p>
+                    <p class="desc"><span class="count">Downloads:</span> ${image.downloads}</p>
+                    </div>
                     </div>
                     `;
                 })
@@ -73,18 +83,22 @@ document.getElementById('searchButton').addEventListener('click', function(event
                     captionDelay: 250
                 });
 
+                //odświeżnie, gdy np. dodamy nowy element
                 lightbox.refresh();
 
             }
         })
         .catch((error) => {
-            console.error('There has been a problem with your fetch operation:', error);
+            console.log('There has been a problem with your fetch operation:', error);
         })
+
+        //loader niewidoczny po tym jak żądanie zostało przetworzone
         .finally(() => {
             loader.style.display = 'none';
         })
 });
 
+//zamykanie okna modalnego za pomocą klawiszy
 document.addEventListener("keydown", e => {
     if(e.key === "Escape" && instance.visible()) {
         instance.close();

@@ -56,3 +56,45 @@
       transform: rotate(360deg);
   }
   } 
+
+  .container-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin: 0 auto;
+  }
+
+  .desc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    flex-direction: column;
+  }
+
+  .count {
+    font-weight: 500;
+  }
+
+  button {
+    background-color: rgba(78, 117, 255, 1);
+
+    color: white;
+    border: none;
+    height: 23px;
+    border-radius: 5px;
+  }
+
+  button:hover {
+    background-color: rgba(108, 140, 255, 1);
+  }
+
+  input:hover {
+    border: 1px solid black;
+    border-radius: 4px;
+  }
+
+  input.pressed {
+    border-radius: 4px;
+    border: 1px solid rgba(108, 140, 255, 1);
+    outline: none;
+  }
